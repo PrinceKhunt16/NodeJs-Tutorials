@@ -1,4 +1,6 @@
-const {readFile, writeFile, read} = require('fs');
+const {readFile, writeFile} = require('fs');
+
+console.log('start');
 
 readFile('./dummy.txt', 'utf-8', (err, res) => {
     if(err){
@@ -6,8 +8,8 @@ readFile('./dummy.txt', 'utf-8', (err, res) => {
         return;
     }
 
-    let fake = res;
-    console.log(fake);
+    let dummy = res;
+    console.log(dummy);
 
     readFile('./dummyTwo.txt', 'utf-8', (err, res) => {
         if(err){
@@ -15,7 +17,18 @@ readFile('./dummy.txt', 'utf-8', (err, res) => {
             return;
         }
 
-        fake = res;
-        console.log(res);
+        dummyTwo = res;
+        console.log(dummyTwo);
+        
+        writeFile('./dummyThree.txt', `${dummy} and also ${dummyTwo}`, (err, res) => {
+            if(err){
+                console.log(err);
+                return;
+            }
+
+            console.log('done with this task');
+        })
     });
 });
+
+console.log('starting the next one');
